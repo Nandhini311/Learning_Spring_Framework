@@ -15,8 +15,9 @@ public class SpringIn5StepsApplication {
 		BinarySearchImpl binarySearch1 = new BinarySearchImpl(new QuickSortAlgorithm());
 		int result1 = binarySearch1.binarySearch(new int[]{12, 5, 3, 6}, 3);
 		System.out.println(result1);
-		//this way you can you use any sorting alogrithm without changing anything at the backend code level.
 
+		System.out.println("Happy Learning - Spring Framework");
+		//this way you can you use any sorting alogrithm without changing anything at the backend code level.
 		//SpringApplication.run(SpringIn5StepsApplication.class, args);
 	}
 
