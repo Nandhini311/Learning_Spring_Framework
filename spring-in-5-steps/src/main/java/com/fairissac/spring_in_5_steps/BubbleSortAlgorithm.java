@@ -4,12 +4,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
-@Qualifier("quick")
-public class QuickSortAlgorithm implements SortingAlgorithm{
+@Qualifier("bubble")
+public class BubbleSortAlgorithm implements SortingAlgorithm{
 
     @Override
     public int sortMethod(int[] array, int value) {
-        System.out.println("Using QuickSort Alogirthm");
-        return 4;
+        System.out.println("Using BubbleSort Alogirthm");
+        return 8;
     }
 }
