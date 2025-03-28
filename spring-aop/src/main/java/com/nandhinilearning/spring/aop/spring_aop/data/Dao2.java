@@ -1,4 +1,4 @@
-package com.nandhinilearning.spring.aop.spring_aop;
+package com.nandhinilearning.spring.aop.spring_aop.data;
 
 import org.springframework.stereotype.Repository;
 
