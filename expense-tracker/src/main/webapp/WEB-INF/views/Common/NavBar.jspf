@@ -1,0 +1,11 @@
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">Expense Tracker</a>
+        <div>
+            <a class="nav-link text-light d-inline" href="/">Home</a>
+            <a class="nav-link text-light d-inline" href="/list-expenses">Expenses</a>
+            <a class="nav-link text-light d-inline" href="/add-expense">Add Expense</a>
+            <a class="nav-link text-light d-inline" href="/logout">Logout</a>
+        </div>
+    </div>
+</nav>
