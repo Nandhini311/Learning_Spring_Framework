@@ -2,17 +2,18 @@ package nandhini.learning.restful_web_services.user;
 
 import java.time.LocalDate;
 
+//model or entity representing a user
 public class User {
+
     private Integer id;
     private String name;
     private LocalDate birthDate;
 
-    public User(LocalDate birthDate, Integer id, String name) {
+    public User(Integer id, String name,  LocalDate birthDate) {
         this.birthDate = birthDate;
         this.id = id;
         this.name = name;
     }
-
 
     public Integer getId() {
         return id;
