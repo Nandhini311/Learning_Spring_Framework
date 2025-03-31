@@ -1,12 +1,20 @@
 package nandhini.learning.restful_web_services.user;
 
+import jakarta.validation.Valid;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 
 import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 public class UserResource {
@@ -24,29 +32,30 @@ public class UserResource {
     }
 
     //getting details of a specific user
-    @GetMapping("/users/{id}")
-    public User retreiveSpecificUser(@PathVariable Integer id){
-//        for(var i: service.findAll()){
-//            if(i.getId() == id)
-//            {
-//                return i;
-//            }
-//        }
-//        return null;
+    //along with returning the user details, we also want to return the link to users //localhost:8080/users
 
+    //EntityModel - wrap the user in this
+    //WebMvcLinkBuilder
+
+    @GetMapping("/users/{id}")
+    public EntityModel<User> retreiveSpecificUser(@PathVariable Integer id){
         User user = service.findOne(id);
         if(user == null){
             throw new UserNotFoundException("id: " + id);
             //UserNotFoundException is a custom class that we created which extends the RuntimeException.
         }
-        return user;
+        EntityModel<User> entityModel = EntityModel.of(user);
+        WebMvcLinkBuilder link = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).retrieveAllUsers());
+        entityModel.add(link.withRel("all-users"));
+        return entityModel;
     }
 
 
     //now to insert user values
     @PostMapping("/users")
     //@Request Body - means to bind the method parameter to the server.
-    public ResponseEntity createUser(@RequestBody User user){
+    public ResponseEntity createUser( @Valid @RequestBody User user){
+        //what is reponseEntity - whole of the response, including message body, response header, status code
         //data we get from the server will be added to the list.
         User savedUser = service.save(user); //we have defined a method save in the UserDaoService Component
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedUser.getId()).toUri();
@@ -64,7 +73,7 @@ public class UserResource {
 
     //deleting a user.
     @DeleteMapping("/users/delete/{id}")
-    public void deleteUser(@PathVariable int id){
+    public void deleteUser( @PathVariable int id){
         service.DeleteById(id);
     }
 
